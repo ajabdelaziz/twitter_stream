@@ -3,11 +3,19 @@ version: '3'
 services:
   db:
     image: postgres
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - "5431:5431"
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python /twitter/manage.py runserver 0.0.0.0:8000
+    environment:
+      - PGHOST=db
+      - PGUSER=postgres
+      - POSTGRES_DB=postgres
     volumes:
-      - .:/code
+      - .:/twitter
     ports:
       - "8000:8000"
     depends_on:

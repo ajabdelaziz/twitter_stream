@@ -85,7 +85,7 @@ LOGIN_REDIRECT_URL = TWEET_URL + 'tweets/'
 
 default_db = {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'twitter',
+    'NAME': 'postgres',
     'USER': 'postgres',
 }
 DATABASES = {"default": default_db}
