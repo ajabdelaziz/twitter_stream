@@ -1,0 +1,80 @@
+<h2>Search By</h2>
+<div class="container">
+    <form id="hashtag-form"method="POST">
+        {% csrf_token %}
+        <div>
+          <input
+                  type="text"
+                  name="hashtags"
+                  placeholder="hashtags"
+          >
+        </div>
+    </form>
+    <input type="button" value="hashtags" id="hashtag-button">
+</div>
+
+<div class="container">
+    <form id="text-form"method="POST">
+        {% csrf_token %}
+        <div>
+          <input
+                  type="text"
+                  name="text"
+                  placeholder="text"
+          >
+        </div>
+    </form>
+    <input type="button" value="text" id="text-button">
+</div>
+
+<div class="container">
+    <form id="user-form"method="POST">
+        {% csrf_token %}
+        <div>
+          <input
+                  type="text"
+                  name="user"
+                  placeholder="user"
+          >
+        </div>
+    </form>
+    <input type="button" value="user" id="user-button">
+</div>
+<br><br>
+<div id="tweets">
+{#    tweets get appended here#}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $( "input[type=button]" ).click(function(event) {
+            event.preventDefault();
+            let $form_input = $(this).closest(".container").find('input[type=text]');
+            debugger
+            $.ajax({
+                url: "{{ settings.TWEET_URL }}tweets_filtered",
+                method: 'GET',
+                data: {
+                    q: $form_input.val(),
+                    filter: $(this).val(),
+                },
+                success: function(results){
+                    $('#tweets').empty()
+                    results.forEach(function(r, i) {
+                        debugger
+                        $('#tweets').append("<div>" +
+                                "<div>" + r.name  + "</div>" +
+                                "<div>" + r.tweet.text + "</div>" +
+                                "<div>" + r.tweet.hashtags + "</div>"
+                            + "</div><br><br>")
+                    })
+                  },
+                error: function(error_data){
+                    console.log(error_data)
+                }
+            });
+        });
+    })
+</script>
