@@ -14,7 +14,7 @@ First must make an env file called twitter.env and set the appropriate env varia
 
 then you can start the stream after running `docker-compose up -d --build` by finding the name of your container and running 
 
-`docker exec -it your_container_name bash`.  After getting into the container simply run `python manag.py startstream`
+`docker exec -it your_container_name bash`.  After getting into the container simply run `python manage.py startstream`
 
 
 Known issues
